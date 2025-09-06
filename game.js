@@ -20,17 +20,25 @@ class PreloadScene extends Phaser.Scene {
         // Create sprite textures using canvas as fallback
         this.createSprites();
         
-        // Load UI elements
+        // Load enhanced Pokemon-style battle background
         this.load.image('battleBg', 'data:image/svg+xml;base64,' + btoa(`
             <svg width="800" height="400" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" style="stop-color:#87CEEB;stop-opacity:1" />
-                        <stop offset="50%" style="stop-color:#98FB98;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#90EE90;stop-opacity:1" />
+                        <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
+                        <stop offset="30%" style="stop-color:#87CEEB;stop-opacity:1" />
+                        <stop offset="70%" style="stop-color:#98FB98;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#32CD32;stop-opacity:1" />
                     </linearGradient>
+                    <radialGradient id="sunGrad" cx="70%" cy="20%" r="15%">
+                        <stop offset="0%" style="stop-color:#FFD700;stop-opacity:0.8" />
+                        <stop offset="100%" style="stop-color:#FFA500;stop-opacity:0.3" />
+                    </radialGradient>
                 </defs>
                 <rect width="800" height="400" fill="url(#skyGrad)"/>
+                <ellipse cx="560" cy="80" rx="60" ry="60" fill="url(#sunGrad)"/>
+                <rect x="0" y="300" width="800" height="100" fill="#654321" opacity="0.3"/>
+                <rect x="0" y="350" width="800" height="50" fill="#8B4513" opacity="0.2"/>
             </svg>
         `));
     }
@@ -100,49 +108,71 @@ class PreloadScene extends Phaser.Scene {
     createMrAzharSprite() {
         const graphics = this.add.graphics();
         
-        // AUTHENTIC POKEMON TRAINER STYLE (like reference image)
+        // ENHANCED POKEMON TRAINER STYLE - More vibrant and expressive!
         
-        // Simple black outline
+        // Black outline (stronger for Pokemon style)
         graphics.fillStyle(0x000000);
         graphics.fillRect(6, 0, 20, 32);    // Body outline
         graphics.fillRect(8, 0, 16, 3);     // Head top
         
-        // Simple brown hair (classic Pokemon style)
-        graphics.fillStyle(0x8B4513);       // Classic brown
+        // Enhanced hair with Pokemon vibrancy
+        graphics.fillStyle(0x8B6914);       // Rich golden brown
         graphics.fillRect(8, 1, 16, 8);     // Hair base
         graphics.fillRect(9, 0, 14, 2);     // Hair top
+        graphics.fillRect(7, 2, 2, 4);      // Left hair spikes
+        graphics.fillRect(23, 2, 2, 4);     // Right hair spikes
         
-        // Hair highlight (simple)
-        graphics.fillStyle(0xA0522D);
-        graphics.fillRect(10, 2, 12, 4);    // Simple highlight
+        // Hair highlight (more dynamic)
+        graphics.fillStyle(0xFFD700);       // Golden highlights
+        graphics.fillRect(10, 2, 12, 2);    // Top highlight
+        graphics.fillRect(12, 4, 8, 2);     // Middle highlight
         
-        // Face (classic Pokemon skin tone)
-        graphics.fillStyle(0xFFDBCB);       // Pokemon skin
+        // Face (warmer Pokemon skin tone)
+        graphics.fillStyle(0xFFC49B);       // Warmer skin
         graphics.fillRect(10, 9, 12, 10);   // Face
         
-        // Simple dot eyes (authentic Pokemon style)
+        // Enhanced expressive eyes (determined trainer look)
         graphics.fillStyle(0x000000);
-        graphics.fillRect(12, 13, 2, 2);    // Left eye
-        graphics.fillRect(18, 13, 2, 2);    // Right eye
+        graphics.fillRect(12, 13, 2, 3);    // Left eye (taller)
+        graphics.fillRect(18, 13, 2, 3);    // Right eye (taller)
         
-        // Simple mouth line
-        graphics.fillRect(14, 17, 4, 1);    // Mouth
+        // Eye highlights (gives life to sprite)
+        graphics.fillStyle(0xFFFFFF);
+        graphics.fillRect(12, 13, 1, 1);    // Left eye shine
+        graphics.fillRect(18, 13, 1, 1);    // Right eye shine
+        
+        // Confident smile (more expressive)
+        graphics.fillStyle(0x8B4513);
+        graphics.fillRect(14, 17, 4, 1);    // Mouth line
+        graphics.fillRect(15, 18, 2, 1);    // Slight smile curve
+        
+        // Eyebrows (determined expression)
+        graphics.fillStyle(0x654321);
+        graphics.fillRect(11, 12, 4, 1);    // Left eyebrow
+        graphics.fillRect(17, 12, 4, 1);    // Right eyebrow
         
         // Neck
-        graphics.fillStyle(0xFFDBCB);
+        graphics.fillStyle(0xFFC49B);
         graphics.fillRect(13, 19, 6, 4);    // Neck
         
-        // Classic blue shirt (like Pokemon trainers)
-        graphics.fillStyle(0x4169E1);       // Royal blue
+        // Enhanced shirt (vibrant Pokemon trainer colors)
+        graphics.fillStyle(0xFF6B35);       // Vibrant orange-red
         graphics.fillRect(7, 23, 18, 9);    // Shirt
         
-        // Simple shirt highlight
-        graphics.fillStyle(0x6495ED);
-        graphics.fillRect(8, 24, 16, 3);    // Highlight
+        // Dynamic shirt highlights
+        graphics.fillStyle(0xFFB366);
+        graphics.fillRect(8, 24, 16, 2);    // Main highlight
+        graphics.fillRect(10, 26, 12, 1);   // Secondary highlight
         
-        // Simple collar
-        graphics.fillStyle(0x000080);
+        // Professional collar (darker contrast)
+        graphics.fillStyle(0xCC4A1A);
         graphics.fillRect(12, 23, 8, 2);    // Collar
+        
+        // Add teacher badge/insignia
+        graphics.fillStyle(0xFFD700);       // Gold badge
+        graphics.fillRect(9, 25, 3, 3);     // Badge square
+        graphics.fillStyle(0x000000);
+        graphics.fillRect(10, 26, 1, 1);    // Badge center
         
         graphics.generateTexture('mrAzhar', 32, 32);
         graphics.destroy();
@@ -202,13 +232,14 @@ class PreloadScene extends Phaser.Scene {
         graphics.fillStyle(0xFFDBCB);
         graphics.fillRect(13, 19, 6, 4);    // Neck
         
-        // Simple green shirt
-        graphics.fillStyle(0x4CAF50);       // Green
+        // Vibrant green shirt (more Pokemon-like)
+        graphics.fillStyle(0x00D4AA);       // Electric teal
         graphics.fillRect(7, 23, 18, 9);    // Shirt
         
-        // Simple shirt highlight
-        graphics.fillStyle(0x66BB6A);
-        graphics.fillRect(8, 24, 16, 3);    // Highlight
+        // Dynamic shirt highlight
+        graphics.fillStyle(0x4DFFCD);
+        graphics.fillRect(8, 24, 16, 2);    // Main highlight
+        graphics.fillRect(9, 26, 14, 1);    // Secondary highlight
         
         graphics.generateTexture('lazyStudent', 32, 32);
         graphics.destroy();
@@ -255,13 +286,15 @@ class PreloadScene extends Phaser.Scene {
         graphics.fillStyle(0xFFDBCB);
         graphics.fillRect(13, 19, 6, 4);    // Neck
         
-        // Simple orange shirt (bright colors)
-        graphics.fillStyle(0xFF9800);       // Bright orange
+        // Vibrant orange shirt (Class Clown energy)
+        graphics.fillStyle(0xFF073A);       // Intense red-orange
         graphics.fillRect(7, 23, 18, 9);    // Shirt
         
-        // Simple shirt highlight
-        graphics.fillStyle(0xFFB74D);
-        graphics.fillRect(8, 24, 16, 3);    // Highlight
+        // Dynamic highlights (chaotic energy)
+        graphics.fillStyle(0xFF4D6D);
+        graphics.fillRect(8, 24, 16, 2);    // Main highlight
+        graphics.fillRect(7, 26, 4, 1);     // Left spike highlight
+        graphics.fillRect(21, 26, 4, 1);    // Right spike highlight
         
         graphics.generateTexture('classClown', 32, 32);
         graphics.destroy();
@@ -580,6 +613,11 @@ class BattleScene extends Phaser.Scene {
         
         // Background
         this.background = this.add.image(400, 200, 'battleBg');
+        
+        // Create screen flash overlay for Pokemon-style effects
+        this.screenFlash = this.add.rectangle(400, 300, 800, 600, 0xFFFFFF)
+            .setAlpha(0)
+            .setDepth(1000);
         
         // Start battle music
         this.playBattleMusic();
@@ -991,17 +1029,29 @@ class BattleScene extends Phaser.Scene {
                     const damage = Math.floor(move.damage * (0.85 + Math.random() * 0.3));
                     this.currentEnemy.currentHp = Math.max(0, this.currentEnemy.currentHp - damage);
                     
+                    // Pokemon-style screen flash effect
+                    this.addScreenFlash();
+                    
+                    // Screen shake for impact (Pokemon style)
+                    this.addScreenShake(damage);
+                    
                     // Play HP drain sound
                     this.playSound('hpDrain');
                     
-                    // Damage animation
+                    // Enhanced damage animation with more impact
                     this.tweens.add({
                         targets: this.enemySprite,
-                        x: this.enemySprite.x + 10,
-                        duration: 100,
+                        x: this.enemySprite.x + 15,
+                        scaleX: 0.9,
+                        scaleY: 1.1,
+                        duration: 80,
                         yoyo: true,
-                        repeat: 3
+                        repeat: 4,
+                        ease: 'Power2'
                     });
+                    
+                    // Show floating damage number
+                    this.showDamageNumber(damage, this.enemySprite.x, this.enemySprite.y - 30);
 
                     this.updateDisplay();
                     this.setBattleText(`${this.currentEnemy.name} took ${damage} damage!`);
@@ -1030,17 +1080,29 @@ class BattleScene extends Phaser.Scene {
             const damage = Math.floor(15 * (0.85 + Math.random() * 0.3));
             this.player.currentHp = Math.max(0, this.player.currentHp - damage);
             
+            // Pokemon-style screen flash for player damage
+            this.addScreenFlash(0xFF4444, 0.3); // Red tint for damage
+            
+            // Screen shake for player damage
+            this.addScreenShake(damage * 0.8);
+            
             // Play HP drain sound
             this.playSound('hpDrain');
             
-            // Damage animation
+            // Enhanced player damage animation
             this.tweens.add({
                 targets: this.playerSprite,
-                x: this.playerSprite.x - 10,
-                duration: 100,
+                x: this.playerSprite.x - 15,
+                scaleX: 0.9,
+                scaleY: 1.1,
+                duration: 80,
                 yoyo: true,
-                repeat: 3
+                repeat: 3,
+                ease: 'Power2'
             });
+            
+            // Show floating damage number for player
+            this.showDamageNumber(damage, this.playerSprite.x, this.playerSprite.y - 30, 0xFF4444);
 
             this.updateDisplay();
             this.setBattleText(`Mr. Azhar took ${damage} damage!`);
@@ -1059,6 +1121,12 @@ class BattleScene extends Phaser.Scene {
     enemyDefeated() {
         this.setBattleText(`${this.currentEnemy.name} was disciplined! Mr. Azhar wins!`);
         this.playSound('victory');
+        
+        // Victory screen flash (gold/yellow)
+        this.addScreenFlash(0xFFD700, 1.0);
+        
+        // Celebration screen shake
+        this.cameras.main.shake(300, 3, false);
         
         // Victory animation
         this.tweens.add({
@@ -1079,6 +1147,9 @@ class BattleScene extends Phaser.Scene {
         this.setBattleText("Mr. Azhar is overwhelmed! The students win...");
         this.playSound('defeat');
         this.battleMusicPlaying = false; // Stop battle music
+        
+        // Defeat screen effect (red fade)
+        this.addScreenFlash(0xFF073A, 0.6);
         
         this.time.delayedCall(2000, () => {
             this.setBattleText("The principal gives you another chance! Press any key to try again.");
@@ -1170,27 +1241,97 @@ class BattleScene extends Phaser.Scene {
         this.enemyNameText.setText(this.currentEnemy.name);
         this.enemyLevelText.setText(`Lv.${this.currentEnemy.level}`);
         
-        // Update enemy HP bar
+        // Update enemy HP bar with Pokemon-style colors and animation
         const enemyHpPercentage = this.currentEnemy.currentHp / this.currentEnemy.maxHp;
         this.enemyHpBar.clear();
-        let enemyHpColor = 0x4CAF50;
-        if (enemyHpPercentage <= 0.2) enemyHpColor = 0xF44336;
-        else if (enemyHpPercentage <= 0.5) enemyHpColor = 0xFF9800;
+        let enemyHpColor = 0x00D4AA;  // Vibrant teal for high HP
+        if (enemyHpPercentage <= 0.2) enemyHpColor = 0xFF073A;      // Intense red
+        else if (enemyHpPercentage <= 0.5) enemyHpColor = 0xFFD700;  // Gold warning
         
         this.enemyHpBar.fillStyle(enemyHpColor);
-        this.enemyHpBar.fillRoundedRect(500, 85, 140 * enemyHpPercentage, 8, 4);
         
-        // Update player HP bar and text
+        // Animate HP bar changes
+        this.tweens.add({
+            targets: { width: 140 * enemyHpPercentage },
+            width: 140 * enemyHpPercentage,
+            duration: 500,
+            ease: 'Power2',
+            onUpdate: (_, target) => {
+                this.enemyHpBar.clear();
+                this.enemyHpBar.fillStyle(enemyHpColor);
+                this.enemyHpBar.fillRoundedRect(500, 85, target.width, 8, 4);
+            }
+        });
+        
+        // Update player HP bar with enhanced colors and animation
         const playerHpPercentage = this.player.currentHp / this.player.maxHp;
         this.playerHpBar.clear();
-        let playerHpColor = 0x4CAF50;
-        if (playerHpPercentage <= 0.2) playerHpColor = 0xF44336;
-        else if (playerHpPercentage <= 0.5) playerHpColor = 0xFF9800;
+        let playerHpColor = 0x00D4AA;  // Vibrant teal for high HP
+        if (playerHpPercentage <= 0.2) playerHpColor = 0xFF073A;      // Intense red
+        else if (playerHpPercentage <= 0.5) playerHpColor = 0xFFD700;  // Gold warning
         
         this.playerHpBar.fillStyle(playerHpColor);
-        this.playerHpBar.fillRoundedRect(100, 355, 140 * playerHpPercentage, 8, 4);
+        
+        // Animate player HP bar
+        this.tweens.add({
+            targets: { width: 140 * playerHpPercentage },
+            width: 140 * playerHpPercentage,
+            duration: 500,
+            ease: 'Power2',
+            onUpdate: (_, target) => {
+                this.playerHpBar.clear();
+                this.playerHpBar.fillStyle(playerHpColor);
+                this.playerHpBar.fillRoundedRect(100, 355, target.width, 8, 4);
+            }
+        });
         
         this.playerHpText.setText(`${this.player.currentHp}/${this.player.maxHp}`);
+    }
+    
+    // Pokemon-style screen flash effect
+    addScreenFlash(color = 0xFFFFFF, intensity = 0.8) {
+        this.screenFlash.setFillStyle(color);
+        this.screenFlash.setAlpha(intensity);
+        
+        this.tweens.add({
+            targets: this.screenFlash,
+            alpha: 0,
+            duration: 150,
+            ease: 'Power2'
+        });
+    }
+    
+    // Pokemon-style screen shake for impact
+    addScreenShake(damage) {
+        const intensity = Math.min(damage * 0.3, 8); // Max shake of 8 pixels
+        const duration = 200 + (damage * 5); // Longer shake for more damage
+        
+        // Shake the camera
+        this.cameras.main.shake(duration, intensity, false);
+    }
+    
+    // Floating damage numbers (classic Pokemon style)
+    showDamageNumber(damage, x, y, color = 0xFFFFFF) {
+        const damageText = this.add.text(x, y, `-${damage}`, {
+            fontSize: '20px',
+            fontFamily: 'Courier New',
+            color: `#${color.toString(16).padStart(6, '0')}`,
+            fontStyle: 'bold',
+            stroke: '#000000',
+            strokeThickness: 2
+        }).setOrigin(0.5);
+        
+        // Animate the damage number
+        this.tweens.add({
+            targets: damageText,
+            y: damageText.y - 50,
+            alpha: 0,
+            scaleX: 1.5,
+            scaleY: 1.5,
+            duration: 800,
+            ease: 'Power2',
+            onComplete: () => damageText.destroy()
+        });
     }
 }
 
